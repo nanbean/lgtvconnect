@@ -28,9 +28,11 @@ exports.pushNotification = functions.https.onRequest((req, res) => {
 			};
 			tokens = tokensSnapshot.val();
 			admin.messaging().sendToDevice(tokens, payload);
-			res.status(200).json({return: true});
+			return true;
 		}).then((reason) => {
-
+			return res.status(200).json({return: false});
 		});
+	} else {
+		return res.status(200).json({return: false});
 	}
 });
