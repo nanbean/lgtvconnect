@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { setAdvertisementId, setAdData } from '../actions/ui/advertisement';
-import { getAdData } from '../actions/advertisementActions';
+import { setAdvertisementId } from '../actions/ui/advertisement';
+import { setAdData } from '../actions/advertisementActions';
 
 class Advertisement extends Component {
 
@@ -16,22 +16,20 @@ class Advertisement extends Component {
 		console.log('Advertisement component [componentDidMount()] id:', id);
 		
 		//get advertisement data
-		//let adData = getAdData(id);
-		this.props.setAdData({ad_type:'type1', channel_id:'1232'});
+		this.props.setAdData(id);
+
 	}
 
 	render() {
 		const { id } = this.props;
-		console.log('Advertisement component [render()] id[', id, ']');
-		const adData = this.props.adData;
-		console.log('Advertisement component adData:', adData);
+		const { adData } = this.props;
 		return (
 			<div>
 				<div className="Home-ad">
-					{`Advertisement ${id}`}
+					{`Advertisement ID[${id}]`}
 				</div>
 				<div>
-					{`${adData}`}
+					Ad Data: {`${adData}`}
 				</div>
 			</div>
 		);
@@ -48,8 +46,9 @@ Advertisement.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	id: state.ui.advertisement.id,
-	adData: state.ui.adData
+	id: state.ui.advertisement.id
+	,adData: state.ui.advertisement
+	,adData: state.adData
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -57,9 +56,6 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(setAdvertisementId(params));
 	},
 	setAdData(params) {
-		dispatch(setAdData(params));
-	},
-	onReceiveAdData(params) {
 		dispatch(setAdData(params));
 	}
 });
