@@ -13,6 +13,8 @@ import SplashScreen from '../components/SplashScreen';
 import { setAppToken } from '../actions/appTokenActions';
 import { setLoginSplash } from '../actions/ui/login';
 import { setEmailHash } from '../actions/emailHashActions';
+import { setUserInfo } from '../actions/userInfo';
+import { requestPermission } from '../actions/messagingActions';
 
 class Login extends Component {
 	constructor (props) {
@@ -34,15 +36,17 @@ class Login extends Component {
 		if (user) {
 			this.props.setAppToken(user.uid);
 			this.props.setEmailHash(hash(user.email));
+			this.props.setUserInfo(user);
+			this.props.requestPermission();
 			this.props.setLoginSplash(false);
 		}
 	}
 
 	render() {
-		const { appToken, splash } = this.props;
+		const { appToken, splash, token } = this.props;
 
-		if (appToken) {
-			return <Redirect to='/home' />;
+		if (appToken && token) {
+			return <Redirect to='/remote' />;
 		} else if (splash) {
 			return <SplashScreen />;
 		} else {
@@ -56,18 +60,25 @@ Login.propTypes = {
 	history: PropTypes.shape({
 		push: PropTypes.func.isRequired,
 	}),
+	requestPermission: PropTypes.func.isRequired,
 	splash: PropTypes.bool.isRequired,
 	setAppToken: PropTypes.func.isRequired,
 	setEmailHash: PropTypes.func.isRequired,
-	setLoginSplash: PropTypes.func.isRequired
+	setLoginSplash: PropTypes.func.isRequired,
+	setUserInfo: PropTypes.func.isRequired,
+	token: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
 	appToken: state.appToken,
-	splash: state.ui.login.splash
+	splash: state.ui.login.splash,
+	token: state.token
 });
 
 const mapDispatchToProps = dispatch => ({
+	requestPermission () {
+		dispatch(requestPermission());
+	},
 	setAppToken (params) {
 		dispatch(setAppToken(params));
 	},
@@ -76,6 +87,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	setLoginSplash (params) {
 		dispatch(setLoginSplash(params));
+	},
+	setUserInfo (params) {
+		dispatch(setUserInfo(params));
 	}
 });
 
