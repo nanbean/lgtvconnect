@@ -1,6 +1,6 @@
 import * as actions from '../actions/actionTypes';
 
-const initialState = '';
+const initialState = {url:''};
 
 export default function adData (state = initialState, action) {
 	switch (action.type) {

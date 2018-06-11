@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Embed } from 'semantic-ui-react'
 
 import { setAdvertisementId } from '../actions/ui/advertisement';
 import { setAdData } from '../actions/advertisementActions';
 
 class Advertisement extends Component {
 
-	componentDidMount () {
+	componentWillMount () {
 		const { match } = this.props;
 		const id = match && match.params && match.params.id;
 
@@ -21,18 +22,29 @@ class Advertisement extends Component {
 	}
 
 	render() {
-		const { id } = this.props;
 		const { adData } = this.props;
-		return (
-			<div>
-				<div className="Home-ad">
-					{`Advertisement ID[${id}]`}
-				</div>
-				<div>
-					Ad Data: {`${adData}`}
-				</div>
-			</div>
-		);
+		switch(adData.ad_type) {
+			case 'image':
+				return (
+					<div>
+						<a href={`${adData.ext_link_url}`} className="ui image">
+							<img src={`${adData.url}`} title="외부 이미지" alt="">
+							</img>
+						</a>
+					</div>					
+				);
+			case 'movie':
+				return (
+					<Embed id={`${adData.mov_id}`} source='youtube' autoplay={true}></Embed>			
+				);
+			default:
+				return (
+					<div>
+						loading...
+					</div>
+				);
+		}
+
 	}
 }
 
@@ -47,7 +59,6 @@ Advertisement.propTypes = {
 
 const mapStateToProps = state => ({
 	id: state.ui.advertisement.id
-	,adData: state.ui.advertisement
 	,adData: state.adData
 });
 

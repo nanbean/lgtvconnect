@@ -10,8 +10,9 @@ export const setAdData = (params) => (dispatch) => {
     return database.ref('/ads/' + params).once('value')
     .then(
         adData => {
-            console.log('data snapshot: ', adData.val());
-            dispatch(adDataSuccess(JSON.stringify(adData)));
+            adData = adData.val();
+            console.log('advertisement data snapshot: ', adData);
+            dispatch(adDataSuccess(adData));
         }
     )
     .catch(err => {
