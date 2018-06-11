@@ -8,6 +8,5 @@ export default function configureStore (initialState) {
 		initialState,
 		applyMiddleware(thunkMiddleware) // lets us dispatch functions
 	);
-	console.log(store.getState());
 	return store;
 }
