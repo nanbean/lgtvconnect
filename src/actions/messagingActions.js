@@ -2,7 +2,7 @@ import {
 	SET_TOKEN,
 	SET_NOTIFICATION
 } from './actionTypes';
-import { messaging } from '../service/firebase';
+import { database, messaging } from '../service/firebase';
 
 export const getTokenSuccess = params => ({
 	type: SET_TOKEN,
@@ -14,10 +14,29 @@ export const getTokenFailure = () => ({
 	payload: ''
 });
 
-export const requestPermission = () => (dispatch) => {
+export const requestPermission = () => (dispatch, getState) => {
+	const state = getState();
+	const { emailHash } = state;
 	return messaging.requestPermission()
 		.then(() => messaging.getToken())
-		.then(token => dispatch(getTokenSuccess(token)))
+		.then(token => {
+			const usersRef = database.ref('/users');
+			usersRef.once('value', function(snapshot) {
+				if (snapshot.hasChild(emailHash)) {
+					const tokensRef = database.ref('users/' + emailHash).child('tokens');
+					tokensRef.once('value', function(snap) {
+						let list = snap.val();
+						list.push(token);
+						tokensRef.set(list);
+					});
+				} else {
+					database.ref('users/' + emailHash).set({
+						tokens: [token]
+					});
+				}
+			});
+			dispatch(getTokenSuccess(token));
+		})
 		.catch(() => dispatch(getTokenFailure()));
 };
 
@@ -33,8 +52,21 @@ export const deleteTokenFailure = () => ({
 
 export const removePermission = () => (dispatch, getState) => {
 	const state = getState();
-	return messaging.deleteToken(state.token)
-		.then(token => dispatch(deleteTokenSuccess(token)))
+	const { emailHash, token } = state;
+	return messaging.deleteToken(token)
+		.then(() => {
+			const usersRef = database.ref('/users');
+			usersRef.once('value', function(snapshot) {
+				if (snapshot.hasChild(emailHash)) {
+					const tokensRef = database.ref('users/' + emailHash).child('tokens');
+					tokensRef.once('value', function(snap) {
+						let list = snap.val();
+						tokensRef.set(list.filter(i => i !== token));
+					});
+				}
+			});
+			dispatch(deleteTokenSuccess(token));
+		})
 		.catch(() => dispatch(deleteTokenFailure()));
 };
 
