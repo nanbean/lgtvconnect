@@ -16,26 +16,28 @@ export const getTokenFailure = () => ({
 
 export const requestPermission = () => (dispatch, getState) => {
 	const state = getState();
-	const { emailHash } = state;
+	const { emailHash, token } = state;
 	return messaging.requestPermission()
 		.then(() => messaging.getToken())
-		.then(token => {
-			const usersRef = database.ref('/users');
-			usersRef.once('value', function(snapshot) {
-				if (snapshot.hasChild(emailHash)) {
-					const tokensRef = database.ref('users/' + emailHash).child('tokens');
-					tokensRef.once('value', function(snap) {
-						let list = snap.val();
-						list.push(token);
-						tokensRef.set(list);
-					});
-				} else {
-					database.ref('users/' + emailHash).set({
-						tokens: [token]
-					});
-				}
-			});
-			dispatch(getTokenSuccess(token));
+		.then(newToken => {
+			if (newToken !== token) {
+				const usersRef = database.ref('/users');
+				usersRef.once('value', function(snapshot) {
+					if (snapshot.hasChild(emailHash)) {
+						const tokensRef = database.ref('users/' + emailHash).child('tokens');
+						tokensRef.once('value', function(snap) {
+							let list = snap.val();
+							list.push(newToken);
+							tokensRef.set(list);
+						});
+					} else {
+						database.ref('users/' + emailHash).set({
+							tokens: [newToken]
+						});
+					}
+				});
+			}
+			dispatch(getTokenSuccess(newToken));
 		})
 		.catch(() => dispatch(getTokenFailure()));
 };

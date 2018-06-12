@@ -1,7 +1,7 @@
 import {auth, googleAuthProvider} from './firebase';
 
 export function loginWithGoogle() {
-	return auth.signInWithRedirect(googleAuthProvider);
+	return auth.signInWithPopup(googleAuthProvider);
 }
 
 export function logout() {
