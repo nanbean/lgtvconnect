@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import hash from 'object-hash';
+import { Button, Dimmer, Loader } from 'semantic-ui-react';
 
 import { loginWithGoogle } from '../service/auth';
 import { auth } from '../service/firebase';
-
-import LoginPage from '../components/LoginPage';
-import SplashScreen from '../components/SplashScreen';
 
 import { setAppToken } from '../actions/appTokenActions';
 import { setLoginSplash } from '../actions/ui/login';
@@ -33,7 +31,8 @@ class Login extends Component {
 	}
 
 	handleAuthStateChanged = (user) => {
-		if (user) {
+		const { appToken } = this.props;
+		if (user && user.uid !== appToken) {
 			this.props.setAppToken(user.uid);
 			this.props.setEmailHash(hash(user.email));
 			this.props.setUserInfo(user);
@@ -47,10 +46,21 @@ class Login extends Component {
 
 		if (appToken && token) {
 			return <Redirect to='/remote' />;
-		} else if (splash) {
-			return <SplashScreen />;
 		} else {
-			return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+			return (
+				<div className='container-full-page'>
+					<Dimmer active={splash}>
+						<Loader inverted content='Loading' />
+					</Dimmer>
+					<div className='centered'>
+						<Button
+							content="Sign in with Google"
+							icon="google"
+							onClick={this.handleGoogleLogin}
+						/>
+					</div>
+				</div>
+			);
 		}
 	}
 }

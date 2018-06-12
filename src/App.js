@@ -6,11 +6,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Dimmer } from 'semantic-ui-react';
 
 import {
-	Home,
+	About,
 	Advertisement,
 	Login,
-	Logout,
-	About,
 	MyPage,
 	Remote
 } from './views';
@@ -25,11 +23,9 @@ import './App.css';
 
 const Routing = () => (
 	<Switch>
-		<Route path="/login" component={Login}/>
-		<Route path="/logout" component={Logout}/>
-		<Route exact path='/home' component={Home} />
-		<Route path="/advertisement/:id" component={Advertisement} />
 		<Route exact path="/about" component={About} />
+		<Route path="/advertisement/:id" component={Advertisement} />
+		<Route path="/login" component={Login}/>
 		<Route exact path="/mypage" component={MyPage} />
 		<Route exact path="/remote" component={Remote} />
 		<Redirect from="/" to="/login"/>
