@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions';
-import {
-	setAdvertisementId
-} from '../../actions/ui/advertisement';
+
+import { setAdvertisementId } from '../../actions/ui/advertisement';
 
 const initialState = {};
 
