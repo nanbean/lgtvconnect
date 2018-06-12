@@ -7,18 +7,18 @@ importScripts('https://www.gstatic.com/firebasejs/5.0.4/firebase-messaging.js');
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
 firebase.initializeApp({
-	'messagingSenderId': '182747176288'
+	messagingSenderId: '182747176288',
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(payload => {
-		const title = payload.title;
-		const options = {
-				body: payload.body,
-				icon: payload.icon
-		};
+	const title = payload.title;
+	const options = {
+		body: payload.body,
+		icon: payload.icon,
+	};
 
-		self.registration.showNotification(title, options);
+	self.registration.showNotification(title, options);
 });

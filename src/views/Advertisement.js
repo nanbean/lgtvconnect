@@ -1,73 +1,72 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Embed } from 'semantic-ui-react'
+import { Image, Embed } from 'semantic-ui-react';
 
 import { setAdvertisementId } from '../actions/ui/advertisement';
-import { setAdData } from '../actions/advertisementActions';
+import { requestAdData } from '../actions/advertisementActions';
 
 class Advertisement extends Component {
-
-	componentWillMount () {
+	componentDidMount() {
 		const { match } = this.props;
 		const id = match && match.params && match.params.id;
 
 		this.props.setAdvertisementId(id);
 
-		console.log('Advertisement component [componentDidMount()] id:', id);
-		
-		//get advertisement data
-		this.props.setAdData(id);
+		//console.log('Advertisement component [componentDidMount()] id:', id);
 
+		//get advertisement data
+		this.props.requestAdData(id);
 	}
 
 	render() {
-		const { adData } = this.props;
-		switch(adData.ad_type) {
-			case 'image':
-				return (
-					<div>
-						<a href={`${adData.ext_link_url}`} className="ui image">
-							<img src={`${adData.url}`} title="외부 이미지" alt="">
-							</img>
-						</a>
-					</div>					
-				);
-			case 'movie':
-				return (
-					<Embed id={`${adData.mov_id}`} source='youtube' autoplay={true}></Embed>			
-				);
-			default:
-				return (
-					<div>
-						loading...
-					</div>
-				);
+		const { adType, url, extLinkUrl, movId } = this.props;
+		switch (adType) {
+		case 'image':
+			return (
+				<div>
+					<a href={`${extLinkUrl}`}>
+						<Image src={`${url}`} title="외부 이미지" alt="" />
+					</a>
+				</div>
+			);
+		case 'movie':
+			return <Embed id={`${movId}`} source="youtube" autoplay={true} />;
+		default:
+			return <p>loading...</p>;
 		}
-
 	}
 }
 
 Advertisement.propTypes = {
 	match: PropTypes.shape({
 		params: PropTypes.shape({
-			id: PropTypes.string.isRequired,
+			id: PropTypes.string.isRequired
 		}).isRequired
 	}),
-	id: PropTypes.string
+	id: PropTypes.string,
+	setAdvertisementId: PropTypes.func.isRequired,
+	requestAdData: PropTypes.func.isRequired,
+	adType: PropTypes.string,
+	url: PropTypes.string,
+	extLinkUrl: PropTypes.string,
+	movId: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-	id: state.ui.advertisement.id
-	,adData: state.adData
+	id: state.ui.advertisement.id,
+	adType: state.advertisement.adType,
+	url: state.advertisement.url,
+	extLinkUrl: state.advertisement.extLinkUrl,
+	movId: state.advertisement.movId
 });
 
 const mapDispatchToProps = dispatch => ({
-	setAdvertisementId (params) {
+	setAdvertisementId(params) {
 		dispatch(setAdvertisementId(params));
 	},
-	setAdData(params) {
-		dispatch(setAdData(params));
+	requestAdData(params) {
+		dispatch(requestAdData(params));
 	}
 });
 

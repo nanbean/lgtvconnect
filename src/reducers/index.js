@@ -4,7 +4,7 @@ import notification from './notification';
 import token from './token';
 import appToken from './appToken';
 import emailHash from './emailHash';
-import adData from './adData';
+import advertisement from './advertisement';
 
 const lgtv = combineReducers({
 	ui,
@@ -12,7 +12,7 @@ const lgtv = combineReducers({
 	token,
 	appToken,
 	emailHash,
-	adData
+	advertisement,
 });
 
 export default lgtv;
