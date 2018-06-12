@@ -8,12 +8,8 @@ export default handleActions(
 	{
 		[setAdvertisementId]: (state, { payload }) => ({
 			...state,
-			id: payload,
-		}),
-		// [requestAdData]: (state, { payload }) => ({
-		// 	...state,
-		// 	adData: payload
-		// })
+			id: payload
+		})
 	},
 	initialState
 );
