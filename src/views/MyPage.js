@@ -39,16 +39,16 @@ class MyPage extends Component {
 		const { appToken, email, name, photo } = this.props;
 
 		if (!appToken) {
-			return <Redirect to='/' />;
+			return <Redirect to="/" />;
 		} else {
 			return (
-				<div className='container-full-page'>
+				<div className="container-full-page">
 					<Profile
 						email={email}
 						name={name}
 						photo={photo}
 					/>
-					<div className='centered'>
+					<div className="centered">
 						<Button
 							content="Sign out"
 							icon="google"
@@ -76,7 +76,7 @@ const mapStateToProps = state => ({
 	appToken: state.appToken,
 	email: state.userInfo.email,
 	name: state.userInfo.name,
-	photo: state.userInfo.photo,
+	photo: state.userInfo.photo
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -43,7 +43,7 @@ class App extends React.Component {
 		const { appToken, isSidebarOpen, match, title } = this.props;
 
 		return (
-			<div className='App'>
+			<div className="App">
 				<div
 					className={isSidebarOpen ? 'openSidebar' : 'closedSidebar'}
 					onClick={isSidebarOpen ? toggleSidebar : undefined}
