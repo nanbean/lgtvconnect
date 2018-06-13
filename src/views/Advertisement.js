@@ -43,14 +43,14 @@ Advertisement.propTypes = {
 		params: PropTypes.shape({
 			id: PropTypes.string.isRequired
 		}).isRequired
-	}),
-	id: PropTypes.string,
-	setAdvertisementId: PropTypes.func.isRequired,
+	}).isRequired,
 	requestAdData: PropTypes.func.isRequired,
+	setAdvertisementId: PropTypes.func.isRequired,
 	adType: PropTypes.string,
-	url: PropTypes.string,
 	extLinkUrl: PropTypes.string,
-	movId: PropTypes.string
+	id: PropTypes.string,
+	movId: PropTypes.string,
+	url: PropTypes.string
 };
 
 const mapStateToProps = state => ({

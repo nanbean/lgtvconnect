@@ -45,14 +45,14 @@ class Login extends Component {
 		const { appToken, splash, token } = this.props;
 
 		if (appToken && token) {
-			return <Redirect to='/remote' />;
+			return <Redirect to="/remote" />;
 		} else {
 			return (
-				<div className='container-full-page'>
+				<div className="container-full-page">
 					<Dimmer active={splash}>
-						<Loader inverted content='Loading' />
+						<Loader inverted content="Loading" />
 					</Dimmer>
-					<div className='centered'>
+					<div className="centered">
 						<Button
 							content="Sign in with Google"
 							icon="google"
@@ -68,14 +68,14 @@ class Login extends Component {
 Login.propTypes = {
 	appToken: PropTypes.string.isRequired,
 	history: PropTypes.shape({
-		push: PropTypes.func.isRequired,
-	}),
+		push: PropTypes.func.isRequired
+	}).isRequired,
 	requestPermission: PropTypes.func.isRequired,
-	splash: PropTypes.bool.isRequired,
 	setAppToken: PropTypes.func.isRequired,
 	setEmailHash: PropTypes.func.isRequired,
 	setLoginSplash: PropTypes.func.isRequired,
 	setUserInfo: PropTypes.func.isRequired,
+	splash: PropTypes.bool.isRequired,
 	token: PropTypes.string.isRequired
 };
 

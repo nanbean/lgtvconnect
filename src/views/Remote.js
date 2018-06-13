@@ -13,8 +13,8 @@ class Remote extends Component {
 
 	render() {
 		return (
-			<div className='container-full-page'>
-				<div className='remote'>
+			<div className="container-full-page">
+				<div className="remote">
 					<Grid>
 						<Grid.Row columns={3}>
 							<Grid.Column>
@@ -24,7 +24,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_CH_UP"
 									onClick={this.handleClick}
 								>
-									<Icon name='angle up' />
+									<Icon name="angle up" />
 								</Button>
 							</Grid.Column>
 							<Grid.Column>
@@ -37,7 +37,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_VOL_UP"
 									onClick={this.handleClick}
 								>
-									<Icon name='volume up' />
+									<Icon name="volume up" />
 								</Button>
 							</Grid.Column>
 						</Grid.Row>
@@ -49,7 +49,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_CH_DOWN"
 									onClick={this.handleClick}
 								>
-									<Icon name='angle down' />
+									<Icon name="angle down" />
 								</Button>
 							</Grid.Column>
 							<Grid.Column>
@@ -62,7 +62,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_VOL_DOWN"
 									onClick={this.handleClick}
 								>
-									<Icon name='volume down' />
+									<Icon name="volume down" />
 								</Button>
 							</Grid.Column>
 						</Grid.Row>
@@ -74,7 +74,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_HOME"
 									onClick={this.handleClick}
 								>
-									<Icon name='home' />
+									<Icon name="home" />
 								</Button>
 							</Grid.Column>
 							<Grid.Column>
@@ -84,7 +84,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_PLAY"
 									onClick={this.handleClick}
 								>
-									<Icon name='play' />
+									<Icon name="play" />
 								</Button>
 							</Grid.Column>
 							<Grid.Column>
@@ -94,7 +94,7 @@ class Remote extends Component {
 									keyCode="IR_KEY_PAUSE"
 									onClick={this.handleClick}
 								>
-									<Icon name='pause' />
+									<Icon name="pause" />
 								</Button>
 							</Grid.Column>
 						</Grid.Row>
