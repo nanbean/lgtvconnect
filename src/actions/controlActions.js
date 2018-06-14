@@ -9,7 +9,7 @@ export const callKeyCode = (keyCode, ) => (dispatch, getState) => {
 		var controlRef = database.ref(`users/${emailHash}/control`);
 		controlRef.set({
 			keyCode: keyCode,
-			timeStamp: moment().format('YYYY-MM-DD-HH:DD:SS')
+			timeStamp: moment().format('YYYY-MM-DD-HH:mm:ss')
 		});
 	}
 };
