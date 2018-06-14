@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 
 const config = {
-	apiKey: 'AIzaSyCeRmr6s3qieABkvBEmy7RdTtGz_DrU7_g',
-	authDomain: 'lgtvconnect2.firebaseapp.com',
-	databaseURL: 'https://lgtvconnect2.firebaseio.com',
-	projectId: 'lgtvconnect2',
-	storageBucket: 'lgtvconnect2.appspot.com',
-	messagingSenderId: '126193434880'
+	apiKey: 'your api key',
+	authDomain: 'test.firebaseapp.com',
+	databaseURL: 'https://test.firebaseio.com',
+	projectId: 'test',
+	storageBucket: 'test.appspot.com',
+	messagingSenderId: 'your sender id'
 };
 
 firebase.initializeApp(config);
