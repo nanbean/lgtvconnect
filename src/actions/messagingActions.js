@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
 	SET_TOKEN,
 	SET_NOTIFICATION
@@ -41,7 +42,11 @@ export const requestPermission = () => (dispatch, getState) => {
 						});
 					} else {
 						database.ref('users/' + emailHash).set({
-							tokens: [newToken]
+							tokens: [newToken],
+							constrol: {
+								keyCode: 'IR_KEY_NONE',
+								timeStamp: moment().format('YYYY-MM-DD-HH:mm:ss')
+							}
 						});
 					}
 				});
