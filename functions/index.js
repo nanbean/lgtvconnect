@@ -2,8 +2,6 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-const baseUrl = 'https://{projectId}.firebaseapp.com/';
-
 exports.pushNotification = functions.https.onRequest((req, res) => {
 	const userId = req.body.userId;
 	const title = req.body.title;
@@ -27,7 +25,7 @@ exports.pushNotification = functions.https.onRequest((req, res) => {
 				notification: {
 					title: title,
 					body: message,
-					click_action: baseUrl + 'advertisement/' + adId
+					click_action: './advertisement/' + adId
 				}
 			};
 			tokens = tokensSnapshot.val();

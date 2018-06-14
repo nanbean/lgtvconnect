@@ -30,7 +30,7 @@ class Advertisement extends Component {
 					</a>
 					<br/>
 					<Container textAlign="center">
-					이미지를 클릭하면 상세 페이지로 이동합니다.
+						이미지를 클릭하면 상세 페이지로 이동합니다.
 					</Container>
 				</div>
 			);
