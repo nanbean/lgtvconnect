@@ -6,6 +6,7 @@ exports.pushNotification = functions.https.onRequest((req, res) => {
 	const userId = req.body.userId;
 	const title = req.body.title;
 	const message = req.body.message;
+	const adId = req.body.adId;
 
 	if (userId) {
 		const getDeviceTokensPromise = admin.database()
@@ -23,7 +24,8 @@ exports.pushNotification = functions.https.onRequest((req, res) => {
 			const payload = {
 				notification: {
 					title: title,
-					body: message
+					body: message,
+					click_action: './advertisement/' + adId
 				}
 			};
 			tokens = tokensSnapshot.val();

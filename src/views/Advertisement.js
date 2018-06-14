@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Image, Embed } from 'semantic-ui-react';
+import { Container, Embed, Image } from 'semantic-ui-react';
 
 import { setAdvertisementId } from '../actions/ui/advertisement';
 import { requestAdData } from '../actions/advertisementActions';
@@ -28,6 +28,10 @@ class Advertisement extends Component {
 					<a href={`${extLinkUrl}`}>
 						<Image src={`${url}`} title="외부 이미지" alt="" />
 					</a>
+					<br/>
+					<Container textAlign="center">
+						이미지를 클릭하면 상세 페이지로 이동합니다.
+					</Container>
 				</div>
 			);
 		case 'movie':
