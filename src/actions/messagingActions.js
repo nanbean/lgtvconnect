@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
 	SET_TOKEN,
 	SET_NOTIFICATION
@@ -24,15 +25,28 @@ export const requestPermission = () => (dispatch, getState) => {
 				const usersRef = database.ref('/users');
 				usersRef.once('value', function(snapshot) {
 					if (snapshot.hasChild(emailHash)) {
-						const tokensRef = database.ref('users/' + emailHash).child('tokens');
-						tokensRef.once('value', function(snap) {
-							let list = snap.val();
-							list.push(newToken);
-							tokensRef.set(list);
+						const emailHashRef = database.ref('users/' + emailHash);
+						emailHashRef.once('value', function(snapshot) {
+							if (snapshot.hasChild('tokens')) {
+								const tokensRef = database.ref(`users/${emailHash}/tokens`);
+								tokensRef.once('value', function(snap) {
+									let list = snap.val();
+									list.push(newToken);
+									tokensRef.set(list);
+								});
+							} else {
+								emailHashRef.update({
+									tokens: [newToken]
+								});
+							}
 						});
 					} else {
 						database.ref('users/' + emailHash).set({
-							tokens: [newToken]
+							tokens: [newToken],
+							constrol: {
+								keyCode: 'IR_KEY_NONE',
+								timeStamp: moment().format('YYYY-MM-DD-HH:mm:ss')
+							}
 						});
 					}
 				});
