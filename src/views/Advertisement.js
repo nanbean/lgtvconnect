@@ -20,7 +20,7 @@ class Advertisement extends Component {
 	}
 
 	render() {
-		const { adType, url, extLinkUrl, movId } = this.props;
+		const { adType, url, extLinkUrl, movId, placeholderImage } = this.props;
 		switch (adType) {
 		case 'image':
 			return (
@@ -28,14 +28,21 @@ class Advertisement extends Component {
 					<a href={`${extLinkUrl}`}>
 						<Image src={`${url}`} title="외부 이미지" alt="" />
 					</a>
-					<br/>
+					<br />
 					<Container textAlign="center">
-						이미지를 클릭하면 상세 페이지로 이동합니다.
+							이미지를 클릭하면 상세 페이지로 이동합니다.
 					</Container>
 				</div>
 			);
 		case 'movie':
-			return <Embed id={`${movId}`} source="youtube" autoplay={true} />;
+			return (
+				<Embed
+					id={`${movId}`}
+					source="youtube"
+					autoplay={true}
+					placeholder={`${placeholderImage}`}
+				/>
+			);
 		default:
 			return <p>loading...</p>;
 		}
@@ -54,6 +61,7 @@ Advertisement.propTypes = {
 	extLinkUrl: PropTypes.string,
 	id: PropTypes.string,
 	movId: PropTypes.string,
+	placeholderImage: PropTypes.string,
 	url: PropTypes.string
 };
 
@@ -62,7 +70,8 @@ const mapStateToProps = state => ({
 	adType: state.advertisement.adType,
 	url: state.advertisement.url,
 	extLinkUrl: state.advertisement.extLinkUrl,
-	movId: state.advertisement.movId
+	movId: state.advertisement.movId,
+	placeholderImage: state.advertisement.placeholderImage
 });
 
 const mapDispatchToProps = dispatch => ({
