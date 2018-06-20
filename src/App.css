@@ -119,6 +119,11 @@ header .ui.header h2 {
 	text-align: center;
 }
 
+.message {
+	display: block;
+	padding: 0em 2em 1em 2em;
+}
+
 .remote {
 	display: block;
 	width: 300px;

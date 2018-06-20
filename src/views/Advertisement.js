@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Embed, Image } from 'semantic-ui-react';
+import { Message, Embed, Image } from 'semantic-ui-react';
 
 import { setAdvertisementId } from '../actions/ui/advertisement';
 import { requestAdData } from '../actions/advertisementActions';
@@ -24,26 +24,30 @@ class Advertisement extends Component {
 		switch (adType) {
 		case 'image':
 			return (
-				<div>
+				<div className="container-full-page">
 					<a href={`${extLinkUrl}`}>
 						<Image src={`${url}`} title="외부 이미지" alt="" />
 					</a>
 					<br />
-					<Container textAlign="center">
-						이미지를 클릭하면 상세 페이지로 이동합니다.
-					</Container>
+					<div className="centered">
+						<Message compact>
+							이미지를 클릭하면 상세 페이지로 이동합니다.
+						</Message>
+					</div>
 				</div>
 			);
 		case 'movie':
 			return (
-				<Embed
-					id={`${movId}`}
-					source="youtube"
-					active
-					autoplay
-					hd
-					placeholder={`${placeholderImage}`}
-				/>
+				<div className="container-full-page">
+					<Embed
+						id={`${movId}`}
+						source="youtube"
+						active
+						autoplay
+						hd
+						placeholder={`${placeholderImage}`}
+					/>
+				</div>
 			);
 		default:
 			return <p>loading...</p>;
