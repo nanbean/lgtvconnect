@@ -39,7 +39,9 @@ class Advertisement extends Component {
 				<Embed
 					id={`${movId}`}
 					source="youtube"
-					autoplay={true}
+					active
+					autoplay
+					hd
 					placeholder={`${placeholderImage}`}
 				/>
 			);

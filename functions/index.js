@@ -23,6 +23,7 @@ exports.pushNotification = functions.https.onRequest((req, res) => {
 
 			const payload = {
 				notification: {
+					icon: 'https://lh3.googleusercontent.com/5FO-EqUBjVY_hSpMqDW5PgSHLfEijga2wpeZJh44v0ER5CeTxTu9RXWLdNcVU4OZVnX4=s180-rw',
 					title: title,
 					body: message,
 					click_action: './advertisement/' + adId
